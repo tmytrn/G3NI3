@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     <script src="js/three.js"></script>
+     <script src="js/Detector.js"></script>
+     <script src="js/OrbitControls.js"></script>
+     <script src="js/OBJLoader.js"></script>
+     <script src="js/MTLLoader.js"></script>
+
+        <title> net art </title>
+        <meta charset="utf-8">
+        <style>
+            canvas {
+                position: absolute;
+                top:0px;
+                left:0px;
+                /*background-color: red;*/
+            }
+            body {
+           overflow: hidden;
+           margin: 0;
+           padding: 0;
+           background: hsl(0, 0%, 10%);
+       }
+        </style>
+    </head>
+    <body>
+        <canvas></canvas>
+        <script src="js/reqfuncts.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/TrackballControls.js"></script>
+
+    <script>
+
+      // link to this blessed tutorial: https://manu.ninja/webgl-3d-model-viewer-using-three-js/#setup
+        // The detector will show a warning if the current browser does not support WebGL.
+
+                if (!Detector.webgl) {
+                    Detector.addGetWebGLMessage();
+                }
+
+              // All of these variables will be needed later, just ignore them for now.
+                  var container;
+                  var camera, controls, scene, renderer;
+                  var lighting, ambient, keyLight, fillLight, backLight;
+                  var windowHalfX = window.innerWidth / 2;
+                  var windowHalfY = window.innerHeight / 2;
+                  var raycaster = new THREE.Raycaster();
+              		var mouse = new THREE.Vector2();
+              		var intersectedWith;
+
+                init();
+                animate();
+
+
+                function init() {
+                    container = document.createElement('div');
+                    document.body.appendChild(container);
+
+                    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+                      camera.position.z = 300; //3
+
+
+                      scene = new THREE.Scene();
+
+                      ambient = new THREE.AmbientLight(0xffffff, 1.0);
+                      scene.add(ambient);
+
+                      keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
+                      keyLight.position.set(-100, 0, 100);
+
+                      fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.75);
+                      fillLight.position.set(100, 0, 100);
+
+                      backLight = new THREE.DirectionalLight(0xffffff, 1.0);
+                      backLight.position.set(100, 0, -100).normalize();
+
+                      scene.add(keyLight);
+                      scene.add(fillLight);
+                      scene.add(backLight);
+
+
+                /* MODEL */
+                      var mtlLoader = new THREE.MTLLoader();
+                      mtlLoader.setTexturePath('assets/');
+                      mtlLoader.setPath('assets/');
+                      mtlLoader.load('Outhouse.mtl', function (materials) {
+
+                          materials.preload();
+
+                          //materials.materials.default.map.magFilter = THREE.NearestFilter;
+                          //materials.materials.default.map.minFilter = THREE.LinearFilter;
+
+
+                          var objLoader = new THREE.OBJLoader();
+                          objLoader.setMaterials(materials);
+                          objLoader.setPath('assets/');
+                          objLoader.load('Outhouse.obj', function (object) {
+
+                          scene.add(object);
+
+                          });
+
+                      });
+
+
+                      /* Renderer */
+                     renderer = new THREE.WebGLRenderer();
+                     renderer.setPixelRatio(window.devicePixelRatio);
+                     renderer.setSize(window.innerWidth, window.innerHeight);
+                     renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
+                     container.appendChild(renderer.domElement);
+
+                     /* Controls */
+
+                     controls = new THREE.OrbitControls(camera, renderer.domElement);
+                				controls.target.set( 0, 0, 0 );
+                				controls.update();
+
+                     /* Events */
+                     window.addEventListener('resize', onWindowResize, false);
+                     window.addEventListener('keydown', onKeyboardEvent, false);
+                     document.addEventListener( 'mousemove', onDocumentMouseMove, false);
+               			 document.addEventListener( 'click', onDocumentMouseClick, false);
+                 }
+
+
+                 function onKeyboardEvent(e) {
+                      if (e.code === 'KeyL') {
+                          lighting = !lighting;
+                          if (lighting) {
+                              ambient.intensity = 0.25;
+                              scene.add(keyLight);
+                              scene.add(fillLight);
+                              scene.add(backLight);
+                          } else {
+                              ambient.intensity = 1.0;
+                              scene.remove(keyLight);
+                              scene.remove(fillLight);
+                              scene.remove(backLight);
+                          }
+                      }
+                  }
+
+                 function onWindowResize() {
+                     windowHalfX = window.innerWidth / 2;
+                     windowHalfY = window.innerHeight / 2;
+                     camera.aspect = window.innerWidth / window.innerHeight;
+                     camera.updateProjectionMatrix();
+                     renderer.setSize(window.innerWidth, window.innerHeight);
+                 }
+
+                 onmousemove = function(e){
+                   console.log("mouse location:", e.clientX, e.clientY)
+                 }
+
+
+                 function onDocumentMouseMove( e ){
+              // 		mouse.x = ( e.clientX / window.innerWidth ) * 2 - 1
+               //	mouse.y = - ( e.clientY / window.innerHeight ) * 2 + 1
+
+              // 		raycaster.setFromCamera( mouse, camera );
+
+
+               		//intersections = raycaster.intersectObjects(  );
+
+               		//creates a looping thru intersections array
+               //		for (var i = 0; i < intersections.length; i++) {
+               	//		var name = intersections[i].object.name;
+
+                    if( e.clientX>640 && e.clientX<780 && e.clientY<400 && e.clientY>160 ){
+          						document.body.style.cursor = "pointer";
+          						//intersectedWith = "Outhouse.obj";
+                    }
+
+                    else {
+            						document.body.style.cursor = "auto";
+            					//	intersectedWidth = null;
+            					}
+                		}
+
+
+                  /*  if( intersections.length == 0){
+            					document.body.style.cursor = "auto";
+            					intersectedWith = null;
+            				}
+                  */
+
+            				//console.log(intersectedWith);
+            				//console.log(intersections);
+
+
+
+                function onDocumentMouseClick( e ){
+                		if( e.clientX>640 && e.clientX<780 && e.clientY<400 && e.clientY>160 ){
+                			document.body.style.cursor = "pointer";
+                			window.location = "galleries/index.html";
+                		}
+                    else {//turn cursor back to normal when not hovering over anything
+                			document.body.style.cursor = "auto";
+                		}
+                	}
+
+
+                 function animate() {
+                 requestAnimationFrame(animate);
+                 controls.update();
+                 render();
+                  }
+
+                function render() {
+                  //requestAnimationFrame(render);
+                  //controls.update();
+                  //camera.position.x += ( mouseX - camera.position.x ) * .05;
+				          //camera.position.y += ( - mouseY - camera.position.y ) * .05;
+				          //camera.lookAt( scene.position );
+                  renderer.render(scene, camera);
+                  }
+
+      </script>
+    </body>
+</html>

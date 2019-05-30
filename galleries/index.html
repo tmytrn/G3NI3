@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>wowee</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+		body {
+			margin: 0px;
+			background-color: #000000;
+			height: 112736px;
+		}
+		canvas {
+			position: fixed;
+		}
+	</style>
+</head>
+<body>
+
+
+	<script src="js/three.min.js"></script>
+	<script src="js/TrackballControls.js"></script>
+
+	<script>
+		var camera, scene, renderer;
+		var raycaster = new THREE.Raycaster();
+		var mouse = new THREE.Vector2();
+		var intersectedWith;
+
+
+		init();
+		animate();
+
+
+		function init() {
+			camera = new THREE.PerspectiveCamera(
+				//"millimeter of the lens"
+				100, //100
+				window.innerWidth / window.innerHeight,
+				//how close you can see (if you get too close, it disappears)
+				1,
+				//how far you can see in the distance
+				1000
+			);
+			camera.position.y = 130; //70
+			camera.rotation.y = Math.PI * 0.5;
+			camera.rotation.x = Math.PI * 0.810
+
+
+
+			scene = new THREE.Scene();
+
+			contain = new THREE.Object3D();
+			scene.add(contain);
+
+			renderer = new THREE.WebGLRenderer();
+			renderer.setPixelRatio( window.devicePixelRatio );
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+
+			//outer torus
+			geometry = new THREE.TorusGeometry(150, 65, 40, 40, 6.283);
+			material = new THREE.MeshBasicMaterial({
+				shading: THREE.FlatShading,
+				color: 0x000000,
+			});
+			outtunnel = new THREE.Mesh(geometry, material);
+			contain.add(outtunnel);
+
+			//inner torus
+			geometry = new THREE.TorusGeometry(150, 64.5, 45, 45, 6.283);
+															// radius, tube, radialSegments, tubularSegments, arc
+			material = new THREE.MeshBasicMaterial({
+				shading: THREE.FlatShading,
+				color: 0x1deb35,
+				wireframe: true,
+				wireframeLinewidth: 1
+			});
+			tunnel = new THREE.Mesh(geometry, material);
+			contain.add(tunnel);
+
+
+			//sphere
+			geometry = new THREE.SphereGeometry(10, 100, 100);
+			black = new THREE.TextureLoader().load('textures/blackswirl.jpg');
+			material = new THREE.MeshBasicMaterial({
+				side: THREE.DoubleSide,
+				map: black});
+			sphere = new THREE.Mesh(geometry, material);
+			contain.add(sphere);
+			sphere.name = "elaine";
+			sphere.position.y = 130; //70
+			sphere.position.x = -25; //-25
+
+
+			//text sphere
+			geometry = new THREE.SphereGeometry(12, 100, 100); //5
+			elaine = new THREE.TextureLoader().load('textures/elainename.png');
+			material = new THREE.MeshBasicMaterial({
+				transparent: true, opacity: 1,
+				side: THREE.DoubleSide,
+				map: elaine});
+			txtsphere = new THREE.Mesh(geometry, material);
+			txtsphere.name = "elaine";
+			contain.add(txtsphere);
+			txtsphere.position.y = 130; //53
+			txtsphere.position.x = -25; //-25
+
+
+
+			//sphere 1
+			geometry = new THREE.SphereGeometry(10, 100, 100);
+			pink = new THREE.TextureLoader().load('textures/pinkswirl.jpg');
+			material = new THREE.MeshBasicMaterial({
+				side: THREE.DoubleSide,
+				map: pink});
+			sphere1 = new THREE.Mesh(geometry, material);
+			contain.add(sphere1);
+			sphere1.name = "tieg";
+			sphere1.position.y= -40;
+			sphere1.position.x= -130;
+			sphere1.position.z= -7;
+
+			//text sphere 1
+			geometry = new THREE.SphereGeometry(14, 100, 100);
+			tieg = new THREE.TextureLoader().load('textures/tiegname.png');
+			material = new THREE.MeshBasicMaterial({
+				transparent: true, opacity: 1,
+				side: THREE.DoubleSide,
+				map: tieg});
+			txtsphere1 = new THREE.Mesh(geometry, material);
+			txtsphere1.name = "tieg";
+			contain.add(txtsphere1);
+			txtsphere1.position.y= -40;
+			txtsphere1.position.x= -130;
+			txtsphere1.position.z= -7;
+
+
+			//sphere 2
+			geometry = new THREE.SphereGeometry(10, 100, 100);
+			purple = new THREE.TextureLoader().load('textures/purpleswirl.jpg');
+			material = new THREE.MeshBasicMaterial({
+				side: THREE.DoubleSide,
+				map: purple});
+			sphere2 = new THREE.Mesh(geometry, material);
+			contain.add(sphere2);
+			sphere2.name = "caro";
+			sphere2.position.x = 18;
+			sphere2.position.y = -120;
+			sphere2.position.z = -10;
+			//sphere2.rotation.x = 50.7
+			//sphere2.rotation.y = 69.1
+			//sphere2.rotation.z = 70.9
+
+
+			//text sphere 2
+			geometry = new THREE.SphereGeometry(13, 100, 100); //5
+			caro = new THREE.TextureLoader().load('textures/caroname.png');
+			material = new THREE.MeshBasicMaterial({
+				transparent: true, opacity: 1,
+				side: THREE.DoubleSide,
+				map: caro});
+			txtsphere2 = new THREE.Mesh(geometry, material);
+			txtsphere2.name = "caro"
+			contain.add(txtsphere2);
+			txtsphere2.position.x = 18; //-25
+			txtsphere2.position.y = -120; //53
+			txtsphere2.position.z = -10;
+
+			//sphere 3
+			geometry = new THREE.SphereGeometry(10, 100, 100);
+			green = new THREE.TextureLoader().load('textures/greenswirl.jpg');
+			material = new THREE.MeshBasicMaterial({
+				side: THREE.DoubleSide,
+				map: green});
+			sphere3 = new THREE.Mesh(geometry, material);
+			contain.add(sphere3);
+			sphere3.name = "brick";
+			sphere3.position.x = 140
+			sphere3.position.y = 30
+			sphere3.position.z = -8
+			//sphere3.rotation.x = 50.7
+			//sphere3.rotation.y = 69.1
+			//sphere3.rotation.z = 70.9
+
+			//text sphere 3
+			geometry = new THREE.SphereGeometry(13, 100, 100);
+			brick = new THREE.TextureLoader().load('textures/brickname.png');
+			material = new THREE.MeshBasicMaterial({
+				transparent: true, opacity: 1,
+				side: THREE.DoubleSide,
+				map: brick});
+			txtsphere3 = new THREE.Mesh(geometry, material);
+			txtsphere3.name = "brick";
+			contain.add(txtsphere3);
+			txtsphere3.position.x = 140
+			txtsphere3.position.y = 30
+			txtsphere3.position.z = -8
+
+
+			window.addEventListener( 'resize', onWindowResize, false );
+			document.addEventListener( 'scroll', onScroll, false);
+			document.addEventListener( 'mousemove', onDocumentMouseMove, false);
+			document.addEventListener( 'click', onDocumentMouseClick, false);
+
+    }
+
+
+    	function onDocumentMouseMove( e ){
+    		mouse.x = ( e.clientX / window.innerWidth ) * 2 - 1
+    		mouse.y = - ( e.clientY / window.innerHeight ) * 2 + 1
+
+    		raycaster.setFromCamera( mouse, camera );
+
+    		intersections = raycaster.intersectObjects( contain.children );
+
+    		//creates a looping thru intersections array
+    		for (var i = 0; i < intersections.length; i++) {
+    			var name = intersections[i].object.name;
+
+    			if( name == "elaine" ){
+						document.body.style.cursor = "pointer";
+						intersectedWith = "elaine";
+    			}
+    			else if( name == "brick"){
+						document.body.style.cursor = "pointer";
+						intersectedWith = "brick";
+    			}
+    			else if ( name == "tieg"){
+						document.body.style.cursor = "pointer";
+						intersectedWith = "tieg";
+    			}
+    			else if ( name == "caro"){
+						document.body.style.cursor = "pointer";
+						intersectedWith = "caro";
+    			}
+					else {
+						document.body.style.cursor = "auto";
+						intersectedWidth = null;
+					}
+    		}
+
+				if( intersections.length == 0){
+					document.body.style.cursor = "auto";
+					intersectedWith = null;
+				}
+
+
+				console.log(intersectedWith);
+				console.log(intersections);
+    	}
+
+    	function onDocumentMouseClick(){
+    		if( intersectedWith == "elaine" ){
+    			document.body.style.cursor = "pointer";
+    			window.location = "http://cargocollective.com/elainehsu";
+    		}
+    		else if( intersectedWith == "brick" ){
+    			document.body.style.cursor = "pointer";
+    			window.location = "https://warrrp.space/galleries/brick/index.html";
+    		}
+    		else if( intersectedWith == "tieg" ){
+    			document.body.style.cursor = "pointer";
+    			window.location = "https://soundcloud.com/tieghook";
+    		}
+    		else if( intersectedWith == "caro" ){
+    			document.body.style.cursor = "pointer";
+    			window.location = "http://carolineleeliu.com/";
+    		}
+    		else {//turn cursor back to normal when not hovering over anything
+    			document.body.style.cursor = "auto";
+    		}
+    	}
+
+
+
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize( window.innerWidth, window.innerHeight );
+
+		}
+
+		function onScroll( e ) {
+			contain.rotation.z = -window.scrollY / 1000;
+			camera.rotation.x = -window.scrollY / 5000;
+//THE PROBLEM WAS pageY~!!!|!!!!
+		}
+
+
+		function animate() {
+
+			requestAnimationFrame( animate ); //matches frame rate of the screen, loops that animation at that frame rate (ex. 60fps)
+			renderer.render( scene, camera ); //draws the scene once
+
+
+			sphere.rotation.x += 0.005;
+			sphere.rotation.y += 0.01;
+
+			sphere1.rotation.x += 0.005;
+			sphere1.rotation.y += 0.01;
+
+			sphere2.rotation.x += 0.005;
+			sphere2.rotation.y += 0.01;
+
+			sphere3.rotation.x += 0.005;
+			sphere3.rotation.y += 0.01;
+
+			txtsphere.rotation.x += -0.003;
+			txtsphere.rotation.y += -0.03;
+
+			txtsphere1.rotation.x += -0.003;
+			txtsphere1.rotation.y += -0.03;
+
+			txtsphere2.rotation.x += -0.003;
+			txtsphere2.rotation.y += -0.03;
+
+			txtsphere3.rotation.x += -0.003;
+			txtsphere3.rotation.y += -0.03;
+
+
+
+		}
+
+
+	</script>
+
+
+
+</body>
+</html>
