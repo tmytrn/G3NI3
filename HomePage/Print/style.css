@@ -8,29 +8,43 @@ img {
   margin-bottom: 2rem;
 }
 
-.nav-link{
+.nav {
+  padding-top: 24px;
+  margin-left: 3rem;
+}
+.nav-link {
   color: black;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
 
-p{
+p {
   margin: 0 !important;
+  font-size: 12px;
 }
 
-.col-9{
+a {
+  font-size: 12px;
+}
+
+.col-9 {
   z-index: 1;
+  margin-top: 2rem;
 }
 
-.carousel{
+.col-3 {
+  margin-top: 2rem;
+}
+
+.carousel {
   width: 40rem !important;
 }
 
 .caro {
-  max-width: 100%;
+  max-width: 90%;
   height: auto;
   overflow: scroll;
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
 .item {
@@ -40,4 +54,9 @@ p{
 .slide {
   display: inline-block;
   overflow-y: scroll;
+}
+
+#footer {
+  margin-bottom: 2rem;
+  font-size: 10px;
 }
