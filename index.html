@@ -44,6 +44,7 @@
 				1000
 			);
 			camera.position.y = 130; //70
+			camera.position.x = 15; //70
 			camera.rotation.y = Math.PI * 0.5;
 			camera.rotation.x = Math.PI * 0.810
 
@@ -138,7 +139,7 @@
 			txtsphere1.position.z= -7;
 
 
-			//sphere production
+			//sphere video
 			geometry = new THREE.SphereGeometry(10, 100, 100);
 			purple = new THREE.TextureLoader().load('textures/purpleswirl.jpg');
 			material = new THREE.MeshBasicMaterial({
@@ -146,7 +147,7 @@
 				map: purple});
 			sphere2 = new THREE.Mesh(geometry, material);
 			contain.add(sphere2);
-			sphere2.name = "production";
+			sphere2.name = "video";
 			sphere2.position.x = 18;
 			sphere2.position.y = -120;
 			sphere2.position.z = -10;
@@ -155,49 +156,48 @@
 			//sphere2.rotation.z = 70.9
 
 
-			//text sphere production
-			geometry = new THREE.SphereGeometry(13, 100, 100); //5
-			production = new THREE.TextureLoader().load('textures/production.png');
-			material = new THREE.MeshBasicMaterial({
-				transparent: true, opacity: 1,
-				side: THREE.DoubleSide,
-				map: production});
-			txtsphere2 = new THREE.Mesh(geometry, material);
-			txtsphere2.name = "production"
-			contain.add(txtsphere2);
-			txtsphere2.position.x = 18; //-25
-			txtsphere2.position.y = -120; //53
-			txtsphere2.position.z = -10;
-
-			//sphere video
-			geometry = new THREE.SphereGeometry(10, 100, 100);
-			green = new THREE.TextureLoader().load('textures/greenswirl.jpg');
-			material = new THREE.MeshBasicMaterial({
-				side: THREE.DoubleSide,
-				map: green});
-			sphere3 = new THREE.Mesh(geometry, material);
-			contain.add(sphere3);
-			sphere3.name = "video";
-			sphere3.position.x = 130
-			sphere3.position.y = 40
-			sphere3.position.z = 10
-			//sphere3.rotation.x = 50.7
-			//sphere3.rotation.y = 69.1
-			//sphere3.rotation.z = 70.9
-
 			//text sphere video
-			geometry = new THREE.SphereGeometry(13, 100, 100);
+			geometry = new THREE.SphereGeometry(13, 100, 100); //5
 			video = new THREE.TextureLoader().load('textures/video.png');
 			material = new THREE.MeshBasicMaterial({
 				transparent: true, opacity: 1,
 				side: THREE.DoubleSide,
 				map: video});
-			txtsphere3 = new THREE.Mesh(geometry, material);
-			txtsphere3.name = "video";
-			contain.add(txtsphere3);
-			txtsphere3.position.x = 130
-			txtsphere3.position.y = 40
-			txtsphere3.position.z = 10
+			txtsphere2 = new THREE.Mesh(geometry, material);
+			txtsphere2.name = "video"
+			contain.add(txtsphere2);
+			txtsphere2.position.x = 18; //-25
+			txtsphere2.position.y = -120; //53
+			txtsphere2.position.z = -10;
+
+			// //sphere video
+			// geometry = new THREE.SphereGeometry(10, 100, 100);
+			// green = new THREE.TextureLoader().load('textures/greenswirl.jpg');
+			// material = new THREE.MeshBasicMaterial({
+			// 	side: THREE.DoubleSide,
+			// 	map: green});
+			// sphere3 = new THREE.Mesh(geometry, material);
+			// contain.add(sphere3);
+			// sphere3.name = "video";
+			// sphere3.position.x = 130
+			// sphere3.position.y = 40
+			// sphere3.position.z = 10
+	
+
+			// //text sphere video
+			// geometry = new THREE.SphereGeometry(13, 100, 100);
+			// video = new THREE.TextureLoader().load('textures/video.png');
+			// material = new THREE.MeshBasicMaterial({
+			// 	transparent: true, opacity: 1,
+			// 	side: THREE.DoubleSide,
+			// 	map: video});
+			// txtsphere3 = new THREE.Mesh(geometry, material);
+			// txtsphere3.name = "video";
+			// contain.add(txtsphere3);
+			// txtsphere3.position.x = 130
+			// txtsphere3.position.y = 40
+			// txtsphere3.position.z = 10
+			
 
 
 				//sphere about
@@ -206,15 +206,13 @@
 			material = new THREE.MeshBasicMaterial({
 				side: THREE.DoubleSide,
 				map: green});
-			sphere4 = new THREE.Mesh(geometry, material);
-			contain.add(sphere4);
-			sphere4.name = "about";
-			sphere4.position.x = 110
-			sphere4.position.y = -100
-			sphere4.position.z = -7
-			//sphere4.rotation.x = 50.7
-			//sphere4.rotation.y = 69.1
-			//sphere4.rotation.z = 70.9
+			sphere3 = new THREE.Mesh(geometry, material);
+			contain.add(sphere3);
+			sphere3.name = "about";
+			sphere3.position.x = 130
+			sphere3.position.y = 40
+			sphere3.position.z = 10
+	
 
 			//text sphere about
 			geometry = new THREE.SphereGeometry(13, 100, 100);
@@ -223,18 +221,12 @@
 				transparent: true, opacity: 1,
 				side: THREE.DoubleSide,
 				map: video});
-			txtsphere4 = new THREE.Mesh(geometry, material);
-			txtsphere4.name = "about";
-			contain.add(txtsphere4);
-			txtsphere4.position.x = 110
-			txtsphere4.position.y = -100
-			txtsphere4.position.z = -7
-
-			window.addEventListener( 'resize', onWindowResize, false );
-			document.addEventListener( 'scroll', onScroll, false);
-			document.addEventListener( 'mousemove', onDocumentMouseMove, false);
-			document.addEventListener( 'click', onDocumentMouseClick, false);
-
+			txtsphere3 = new THREE.Mesh(geometry, material);
+			txtsphere3.name = "about";
+			contain.add(txtsphere3);
+			txtsphere3.position.x = 130
+			txtsphere3.position.y = 40
+			txtsphere3.position.z = 10
 
 					//sphere CV
 			geometry = new THREE.SphereGeometry(10, 100, 100);
@@ -242,15 +234,13 @@
 			material = new THREE.MeshBasicMaterial({
 				side: THREE.DoubleSide,
 				map: green});
-			sphere5 = new THREE.Mesh(geometry, material);
-			contain.add(sphere5);
-			sphere5.name = "CV";
-			sphere5.position.x = 100
-			sphere5.position.y = -50
-			sphere5.position.z = -7
-			//sphere5.rotation.x = 50.7
-			//sphere5.rotation.y = 69.1
-			//sphere5.rotation.z = 70.9
+			sphere4 = new THREE.Mesh(geometry, material);
+			contain.add(sphere4);
+			sphere4.name = "CV";
+			sphere4.position.x = 100
+			sphere4.position.y = -50
+			sphere4.position.z = -7
+			
 
 			//text sphere CV
 			geometry = new THREE.SphereGeometry(13, 100, 100);
@@ -259,12 +249,12 @@
 				transparent: true, opacity: 1,
 				side: THREE.DoubleSide,
 				map: video});
-			txtsphere5 = new THREE.Mesh(geometry, material);
-			txtsphere5.name = "cv";
-			contain.add(txtsphere5);
-			txtsphere5.position.x = 100
-			txtsphere5.position.y = -50
-			txtsphere5.position.z = -7
+			txtsphere4 = new THREE.Mesh(geometry, material);
+			txtsphere4.name = "CV";
+			contain.add(txtsphere4);
+			txtsphere4.position.x = 100
+			txtsphere4.position.y = -50
+			txtsphere4.position.z = -7
 
 			window.addEventListener( 'resize', onWindowResize, false );
 			document.addEventListener( 'scroll', onScroll, false);
@@ -299,10 +289,19 @@
 						document.body.style.cursor = "pointer";
 						intersectedWith = "print";
     			}
-    			else if ( name == "production"){
+    			else if ( name == "video"){
 						document.body.style.cursor = "pointer";
-						intersectedWith = "production";
+						intersectedWith = "video";
     			}
+    			else if ( name == "about"){
+						document.body.style.cursor = "pointer";
+						intersectedWith = "about";
+				}
+				else if ( name == "CV"){
+						document.body.style.cursor = "pointer";
+						intersectedWith = "CV";
+				}
+
 					else {
 						document.body.style.cursor = "auto";
 						intersectedWidth = null;
@@ -322,25 +321,30 @@
     	function onDocumentMouseClick(){
     		if( intersectedWith == "fibers" ){
     			document.body.style.cursor = "pointer";
-    			window.location = "http://cargocollective.com/fibershsu";
+    			window.location = "http://g3ni3.com/Fibers";
     		}
     		else if( intersectedWith == "video" ){
     			document.body.style.cursor = "pointer";
-    			window.location = "https://warrrp.space/galleries/video/index.html";
+    			window.location = "https://g3ni3.com/alienfood.html";
     		}
     		else if( intersectedWith == "print" ){
     			document.body.style.cursor = "pointer";
-    			window.location = "https://g3ni3.com/print/index.html";
+    			window.location = "https://g3ni3.com/Print/";
     		}
-    		else if( intersectedWith == "production" ){
+    		else if( intersectedWith == "about" ){
     			document.body.style.cursor = "pointer";
-    			window.location = "http://productionlineleeliu.com/";
+    			window.location = "http://g3ni3.com/About/";
     		}
+			else if( intersectedWith == "CV" ){
+    			document.body.style.cursor = "pointer";
+    			window.location = "http://g3ni3.com/CV";
+    		}
+
+
     		else {//turn cursor back to normal when not hovering over anything
     			document.body.style.cursor = "auto";
     		}
     	}
-
 
 
 		function onWindowResize() {
@@ -379,8 +383,8 @@
 			sphere4.rotation.x += 0.005;
 			sphere4.rotation.y += 0.01;
 
-			sphere5.rotation.x += 0.005;
-			sphere5.rotation.y += 0.01;
+			// sphere5.rotation.x += 0.005;
+			// sphere5.rotation.y += 0.01;
 
 			txtsphere.rotation.x += -0.003;
 			txtsphere.rotation.y += -0.03;
@@ -397,8 +401,8 @@
 			txtsphere4.rotation.x += -0.003;
 			txtsphere4.rotation.y += -0.03;
 
-			txtsphere5.rotation.x += -0.003;
-			txtsphere5.rotation.y += -0.03;
+			// txtsphere5.rotation.x += -0.003;
+			// txtsphere5.rotation.y += -0.03;
 
 
 

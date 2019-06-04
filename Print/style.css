@@ -8,6 +8,12 @@ img {
   margin-bottom: 2rem;
 }
 
+.video {
+   max-height: 25rem !important;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
 .nav {
   padding-top: 24px;
   margin-left: 3rem;
